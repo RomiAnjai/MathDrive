@@ -38,8 +38,11 @@ public class GameManager : MonoBehaviour
     public GameObject tombolLanjutObject;
     public GameObject tombolRestartObject;
 
+    [Header("Tutorial")]
+    public GameObject BatuTutorialUI;
+
     [Header("Mboh opo iki")]
-    public GameObject gameOver;
+    public bool isTutorial = true;
     private float timer;
     private float timerGameManager;
     public int playTime;
@@ -62,6 +65,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         SoalScript ss = FindObjectOfType<SoalScript>();
+        
         if (currentState == GameState.Running)
         {
             PlatformSpawner();
@@ -139,21 +143,24 @@ public class GameManager : MonoBehaviour
 
     public void BolaPoinSpawner()
     {
-        if (poinTimer < spawnRatePoin)
+        if(isTutorial == false)
         {
-            poinTimer += Time.deltaTime;
-        } else {
-        do
-        {
-            randomPoin = Random.Range(0, posisiBatu.Length);
-        }
-        while (randomPoin == randomBatu);
+            if (poinTimer < spawnRatePoin)
+            {
+                poinTimer += Time.deltaTime;
+            } else {
+            do
+            {
+                randomPoin = Random.Range(0, posisiBatu.Length);
+            }
+            while (randomPoin == randomBatu);
 
-        int jenisOperasi = Random.Range(0, jenisOperator.Length);
+            int jenisOperasi = Random.Range(0, jenisOperator.Length);
 
-        Instantiate(jenisOperator[jenisOperasi], posisiBatu[randomPoin].position, posisiBatu[randomPoin].rotation);
+            Instantiate(jenisOperator[jenisOperasi], posisiBatu[randomPoin].position, posisiBatu[randomPoin].rotation);
 
-        poinTimer = 0f;
+            poinTimer = 0f;
+            }
         }
     }
 
@@ -289,5 +296,20 @@ public class GameManager : MonoBehaviour
         tombolRestart.FadeIn();
         yield return new WaitForSecondsRealtime(0.1f);
         tombolRestartHolder.FadeIn();
+    }
+
+    public void BatuTutorial()
+    {
+        BatuTutorialUI.SetActive(true);
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Debug.Log("Tekan A");
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            Debug.Log("Tekan D");
+        }
     }
 }
