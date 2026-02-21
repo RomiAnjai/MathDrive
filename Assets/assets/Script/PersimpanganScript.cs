@@ -17,6 +17,7 @@ public class PersimpanganScript : MonoBehaviour
 
     void Update()
     {
+        GameManager gm = FindObjectOfType<GameManager>();
         if (transform.position.z > stopZ)
         {
             currentSpeed = platSpeed;
@@ -30,7 +31,13 @@ public class PersimpanganScript : MonoBehaviour
             );
         }
 
-        GameManager gm = FindObjectOfType<GameManager>();
+        if(gm.sudahTriggerPersimpangan == true && currentSpeed < 2.5f)
+        {
+            gm.sudahTriggerPersimpangan = false;
+            Time.timeScale = 0f;
+            gm.PersimpanganTutorial();  
+        }
+
         if(currentSpeed == 0 && gm.currentState == GameManager.GameState.Decision)
         {
             KabutMundurScript kms = FindObjectOfType<KabutMundurScript>();

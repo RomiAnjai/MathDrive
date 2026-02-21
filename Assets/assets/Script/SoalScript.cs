@@ -58,6 +58,7 @@ public class SoalScript : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip sFXSalah;
     public AudioClip sFXBenar;
+    public bool yesTutorial;
 
     void Start()
     {
@@ -152,6 +153,14 @@ public class SoalScript : MonoBehaviour
 
             // RESET variable aneh
             whatIsThisVariableForQuestionMark = 0;
+
+            GameManager gm = FindObjectOfType<GameManager>();
+            if(yesTutorial == true)
+            {
+                yesTutorial = false;
+                Time.timeScale = 0f;
+                gm.SoalTutorial();
+            }
 
             ShowJawab();
             LanjutTahapan();

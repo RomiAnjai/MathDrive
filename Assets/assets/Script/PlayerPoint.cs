@@ -6,6 +6,7 @@ public class PlayerPoint : MonoBehaviour
     public int targetPoint;
     public int rekamanPoin;
     public float maxPoint  = 3000;
+    public bool yesTutorial = true;
 
     void Update()
     {
@@ -13,6 +14,13 @@ public class PlayerPoint : MonoBehaviour
         if(gm.waveNow >= gm.wave+1 && gm.currentState == GameManager.GameState.Running && gm.sudahMenang == false)
         {
             gm.Kemenangan();
+        }
+
+        if(yesTutorial == true && totalPoint == 100)
+        {
+            yesTutorial = false;
+            Time.timeScale = 0f;
+            gm.PoinTutorial();
         }
     }
     

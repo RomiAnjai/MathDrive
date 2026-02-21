@@ -2533,6 +2533,7 @@ MonoBehaviour:
   stopZ: -247
   currentSpeed: 0
   prefabSpawned: 0
+  yesTutorial: 1
 --- !u!1 &5162966341482346741
 GameObject:
   m_ObjectHideFlags: 0

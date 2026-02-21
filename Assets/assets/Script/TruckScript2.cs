@@ -7,15 +7,15 @@ public class TruckScript2 : MonoBehaviour
     public float centerX = 0f;
 
     private bool bisaDikontrol = true;
+    public bool sedangTutorial;
 
     void Update()
     {
-        if (bisaDikontrol)
+        if (bisaDikontrol && sedangTutorial == false)
         {
             float horizontalInput = Input.GetAxis("Horizontal");
             transform.Translate(Vector3.right * horizontalInput * turnSpeed * Time.deltaTime);
-        }
-        else
+        } else
         {
             float newX = Mathf.MoveTowards(
                 transform.position.x,

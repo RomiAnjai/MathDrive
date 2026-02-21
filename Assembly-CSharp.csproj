@@ -68,6 +68,7 @@
     <Compile Include="Assets\Ezereal Assets\Ezereal Car Controller\Scripts\Enums\LightBeam.cs" />
     <Compile Include="Assets\assets\Script\PlayerHealth.cs" />
     <Compile Include="Assets\assets\Script\PlayerPoint.cs" />
+    <Compile Include="Assets\assets\Script\ScreenshotManager.cs" />
     <Compile Include="Assets\assets\Script\BolaOperatorScript.cs" />
     <Compile Include="Assets\assets\Script\PersimpanganScript.cs" />
     <Compile Include="Assets\assets\Script\SoalScript.cs" />

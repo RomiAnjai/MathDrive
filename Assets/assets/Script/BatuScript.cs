@@ -23,8 +23,12 @@ public class BatuScript : MonoBehaviour
     private void OnTriggerEnter(Collider other) 
     {
         GameManager gm = FindObjectOfType<GameManager>();
+
+        if(gm.sudahTriggerBatu == true) return;
+
         if (other.CompareTag("TutorialLine"))
         {
+            gm.sudahTriggerBatu = true;
             gm.isTutorial = false;
             Time.timeScale = 0f;
             gm.BatuTutorial();  

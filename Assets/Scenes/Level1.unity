@@ -494,8 +494,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 156399552}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.043880697, y: 0.0033129656, z: -0.00014551621, w: 0.9990313}
-  m_LocalPosition: {x: -0.1939594, y: 2.54, z: -1.9522866}
+  m_LocalRotation: {x: 0.043880694, y: 0.0033129654, z: -0.0001455162, w: 0.99903125}
+  m_LocalPosition: {x: -0.193, y: 2.54, z: -1.952}
   m_LocalScale: {x: 0.49229467, y: 1.0007718, z: 1.1105758}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1224,6 +1224,7 @@ MonoBehaviour:
   whatIsThisVariableForQuestionMark: 0
   sFXSalah: {fileID: 8300000, guid: 72c91de00849f2d41a446eb164e34270, type: 3}
   sFXBenar: {fileID: 8300000, guid: 0bebaa878d237c04dac3883a14cf8506, type: 3}
+  yesTutorial: 0
 --- !u!82 &323830690
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4745,6 +4746,7 @@ MonoBehaviour:
   turnSpeed: 10
   autoCenterSpeed: 10
   centerX: 7.25
+  sedangTutorial: 0
 --- !u!114 &1327478858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4801,6 +4803,7 @@ MonoBehaviour:
   targetPoint: 1000
   rekamanPoin: 0
   maxPoint: 3000
+  yesTutorial: 1
 --- !u!1 &1346541192
 GameObject:
   m_ObjectHideFlags: 0
@@ -6398,13 +6401,13 @@ MonoBehaviour:
   m_text: 10 + 10 = 20
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: -7387502712933668380, guid: 69352c1322f8cab419ef9281a12c2704, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190080
   m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -7696,7 +7699,19 @@ MonoBehaviour:
   tombolRestartHolder: {fileID: 971666357}
   tombolLanjutObject: {fileID: 830629300}
   tombolRestartObject: {fileID: 971666355}
-  gameOver: {fileID: 0}
+  TutorialText: {fileID: 0}
+  TutorialBox: {fileID: 0}
+  ss: {fileID: 0}
+  blackScreen: {fileID: 0}
+  isTutorial: 1
+  sedangTutorialBatu: 0
+  sedangTutorialBola: 0
+  sedangTutorialPoin: 0
+  sedangTutorialPersimpangan: 0
+  sedangTutorialSoal: 0
+  sudahTriggerBatu: 0
+  sudahTriggerBola: 0
+  sudahTriggerPersimpangan: 0
   playTime: 17
   sudahMenang: 0
   awokawok: {fileID: 946170397}
@@ -9061,6 +9076,10 @@ PrefabInstance:
     - target: {fileID: 5275145836805134728, guid: f5a373b1f2b915542a5833aeb1860475, type: 3}
       propertyPath: m_Name
       value: JalanJos
+      objectReference: {fileID: 0}
+    - target: {fileID: 8756526324311748041, guid: f5a373b1f2b915542a5833aeb1860475, type: 3}
+      propertyPath: platSpeed
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

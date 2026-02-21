@@ -6,7 +6,7 @@ public class BolaOperatorScript : MonoBehaviour
     private float timer = 0f;
     public float timerTimer;
 
-    // Update is called once per frame
+    
     void Update()
     {
         GameManager gm = FindObjectOfType<GameManager>();
@@ -23,6 +23,19 @@ public class BolaOperatorScript : MonoBehaviour
         if(gm.currentState == GameManager.GameState.Decision)
         {
             transform.Translate(new Vector3(0, 0.5f, 0) * speed * Time.deltaTime);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other) 
+    {
+        GameManager gm = FindObjectOfType<GameManager>();
+        if(gm.sudahTriggerBola == true) return;
+
+        if (other.CompareTag("TutorialLine"))
+        {
+            gm.sudahTriggerBola = true;
+            Time.timeScale = 0f;
+            gm.BolaTutorial();
         }
     }
 }

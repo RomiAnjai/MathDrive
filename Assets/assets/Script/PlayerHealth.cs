@@ -34,5 +34,11 @@ public class PlayerHealth : MonoBehaviour
         TombolManager tr = FindObjectOfType<TombolManager>();
         Time.timeScale = 0f;
         tr.TombolBalik.SetActive(true);
+
+        if(SceneManager.GetActiveScene().name == "LevelTutorial")
+        {
+            GameManager gm = FindObjectOfType<GameManager>();
+            gm.TutorialText.text = "Nyawamu habis. Ayo kita ulang perjalanan dari awal!";
+        }
     }
 }

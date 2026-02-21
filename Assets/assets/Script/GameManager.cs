@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -39,10 +41,21 @@ public class GameManager : MonoBehaviour
     public GameObject tombolRestartObject;
 
     [Header("Tutorial")]
-    public GameObject BatuTutorialUI;
+    public TMP_Text TutorialText;
+    public GameObject TutorialBox;
+    public SoalScript ss;
+    public FadeImage blackScreen;
 
     [Header("Mboh opo iki")]
     public bool isTutorial = true;
+    public bool sedangTutorialBatu;
+    public bool sedangTutorialBola;
+    public bool sedangTutorialPoin;
+    public bool sedangTutorialPersimpangan;
+    public bool sedangTutorialSoal;
+    public bool sudahTriggerBatu = false;
+    public bool sudahTriggerBola = false;
+    public bool sudahTriggerPersimpangan;
     private float timer;
     private float timerGameManager;
     public int playTime;
@@ -57,21 +70,62 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Instantiate(platform, transform.position + new Vector3(14.05f, 13.84f, 20f), Quaternion.Euler(0f, 0f, 0f));
-        Instantiate(batuRintangan, posisiBatu[1].position, posisiBatu[1].rotation);
+        Instantiate(batuRintangan, posisiBatu[3].position, posisiBatu[3].rotation);
         spawnRate += 1;
+
+        SoalScript ss = FindObjectOfType<SoalScript>();
+        TruckScript2 ts2 = FindObjectOfType<TruckScript2>();
+        PlayerPoint ppoint = FindObjectOfType<PlayerPoint>();
+        PersimpanganScript ps = FindObjectOfType<PersimpanganScript>();
+        BatuScript bs = FindObjectOfType<BatuScript>();
+
+        if(SceneManager.GetActiveScene().name != "LevelTutorial")
+        {
+            isTutorial = false;
+            ss.yesTutorial = false;
+            ts2.sedangTutorial = false;
+            ppoint.yesTutorial = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        SoalScript ss = FindObjectOfType<SoalScript>();
-        
         if (currentState == GameState.Running)
         {
             PlatformSpawner();
             BatuSpawner();
             BolaPoinSpawner();
         }
+        
+        // Bagian tutorial pokok e
+
+        if(sedangTutorialBatu == true)
+        {
+            BatuTutorial();
+        }
+
+        if(sedangTutorialBola == true)
+        {
+            BolaTutorial();
+        }
+        
+        if(sedangTutorialPoin == true)
+        {
+            PoinTutorial();
+        }
+
+        if(sedangTutorialPersimpangan == true)
+        {
+            PersimpanganTutorial();
+        }
+
+        if(sedangTutorialSoal == true)
+        {
+            SoalTutorial();
+        }
+
+        // Akhir dari bagian tutorial
 
         if (kondisiDecision == true && jumlahPersimpangan == 0)
         {
@@ -237,17 +291,17 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SequenceKemenangan()
     {
-        yield return new WaitForSecondsRealtime(1.5f);
-        sudahMenang = true;
-        WinPopupAnimation popup = FindObjectOfType<WinPopupAnimation>();
-        PlayerPoint ppoint = FindObjectOfType<PlayerPoint>();
-        popup.PlayAnimation();
-        showJumlahBintang = (float)ppoint.totalPoint / ppoint.maxPoint;
-        Debug.Log("Total: " + ppoint.totalPoint);
-        Debug.Log("Max Point: " + ppoint.maxPoint);
-        Debug.Log("Rasio: " + showJumlahBintang);
-        Time.timeScale = 0f;
-        ShowBintang();
+            yield return new WaitForSecondsRealtime(1.5f);
+            sudahMenang = true;
+            WinPopupAnimation popup = FindObjectOfType<WinPopupAnimation>();
+            PlayerPoint ppoint = FindObjectOfType<PlayerPoint>();
+            popup.PlayAnimation();
+            showJumlahBintang = (float)ppoint.totalPoint / ppoint.maxPoint;
+            Debug.Log("Total: " + ppoint.totalPoint);
+            Debug.Log("Max Point: " + ppoint.maxPoint);
+            Debug.Log("Rasio: " + showJumlahBintang);
+            Time.timeScale = 0f;
+            ShowBintang();
     }
 
     void IkiPensCak()
@@ -284,7 +338,24 @@ public class GameManager : MonoBehaviour
             bintang2.FadeIn();
         }
 
-        StartCoroutine(MunculkanTombol());
+        if(SceneManager.GetActiveScene().name != "LevelTutorial")
+        {
+            StartCoroutine(MunculkanTombol());
+        } else
+        {
+            yield return new WaitForSecondsRealtime(1f);
+            blackScreen.FadeIn();
+            yield return new WaitForSecondsRealtime(2f);
+            TutorialBox.SetActive(true);
+            TutorialText.color = Color.white;
+            TutorialText.text = "YOU WIN // KAMU MENANG Hebat! Semua soal berhasil diselesaikan.";
+            yield return new WaitForSecondsRealtime(1.5f);
+            TutorialText.text = "Setelah ini, kamu akan memulai perjalanan sungguhan. Terapkan semua yang sudah kamu pelajari dan terus melaju hingga sampai tujuanmu!";
+            yield return new WaitForSecondsRealtime(3.5f);
+            TutorialText.text = "";
+            StartCoroutine(MunculkanTombol());
+        }
+        
     }
 
     IEnumerator MunculkanTombol()
@@ -300,16 +371,89 @@ public class GameManager : MonoBehaviour
 
     public void BatuTutorial()
     {
-        BatuTutorialUI.SetActive(true);
+        sedangTutorialBatu = true;
+        TruckScript2 ts2 = FindObjectOfType<TruckScript2>();
+        TutorialBox.SetActive(true);
+        TutorialText.text = "Awas! Batu di jalan harus dihindari. Menabrak batu akan mengurangi nyawa. Jika nyawa habis, perjalanan harus diulang. Tekan tombol A / D untuk melanjutkan perjalanan";
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            Debug.Log("Tekan A");
+            TutorialBox.SetActive(false);
+            Time.timeScale = 1f;
+            ts2.sedangTutorial = false;
+            sedangTutorialBatu = false;
+            TutorialText.text = "";
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
-            Debug.Log("Tekan D");
+            TutorialBox.SetActive(false);
+            Time.timeScale = 1f;
+            ts2.sedangTutorial = false;
+            sedangTutorialBatu = false;
+            TutorialText.text = "";
+        }
+    }
+
+    public void BolaTutorial()
+    {
+        sedangTutorialBola = true;
+        TruckScript2 ts2 = FindObjectOfType<TruckScript2>();
+        TutorialBox.SetActive(true);
+        TutorialText.text = "Itu adalah bola simbol operasi. Ambil bola-bola tersebut untuk menambah skor. Semakin banyak simbol yang dikumpulkan, semakin tinggi skor yang kamu dapatkan. Tekan tombol 'Enter' untuk lanjut";
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            TutorialBox.SetActive(false);
+            Time.timeScale = 1f;
+            ts2.sedangTutorial = false;
+            sedangTutorialBola = false;
+            TutorialText.text = "";
+        }
+    }
+
+    public void PoinTutorial()
+    {
+        sedangTutorialPoin = true;
+        TutorialBox.SetActive(true);
+        TutorialText.text = "Selamat! kamu mendapatkan 100 poin! setiap 1 bola Operator bernilai 100 poin. Mari kita coba kumpulkan bola operator tersebut hingga mencapai 1000 poin!";
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            TutorialBox.SetActive(false);
+            Time.timeScale = 1f;
+            sedangTutorialPoin = false;
+            TutorialText.text = "";
+        }
+    }
+
+    public void PersimpanganTutorial()
+    {
+        sedangTutorialPersimpangan = true;
+        TutorialBox.SetActive(true);
+        TutorialText.text = "Di persimpangan, perhatikan soal dan pilihan jawaban dengan cermat. Sederhanakan soal di atas dengan mengerjakan dahulu operasi yang benar menurut hierarki matematika. Tekan tombol 1, 2, atau 3 untuk memilih jawabanmu agar perjalanan dapat berlanjut. Tekan tombol 'Enter' untuk lanjut.";
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            TutorialBox.SetActive(false);
+            Time.timeScale = 1f;
+            sedangTutorialPersimpangan = false;
+            TutorialText.text = "";
+        }
+    }
+
+    public void SoalTutorial()
+    {
+        sedangTutorialSoal = true;
+        TutorialBox.SetActive(true);
+        TutorialText.text = "Keren, tepat sekali! Hati-hati di perjalanan selanjutnya, ya!";
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            TutorialBox.SetActive(false);
+            Time.timeScale = 1f;
+            sedangTutorialSoal = false;
+            TutorialText.text = "";
         }
     }
 }
