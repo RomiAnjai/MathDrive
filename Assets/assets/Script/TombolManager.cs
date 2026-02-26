@@ -47,4 +47,9 @@ public class TombolManager : MonoBehaviour
     {
         ScreenLearn.SetActive(true);
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

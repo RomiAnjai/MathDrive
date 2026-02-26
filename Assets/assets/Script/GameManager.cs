@@ -69,6 +69,11 @@ public class GameManager : MonoBehaviour
     private int jos = 0;
     void Start()
     {
+        if(isTutorial == true)
+        {
+            Time.timeScale = 0f;
+            WelcomeText();
+        }
         Instantiate(platform, transform.position + new Vector3(14.05f, 13.84f, 20f), Quaternion.Euler(0f, 0f, 0f));
         Instantiate(batuRintangan, posisiBatu[3].position, posisiBatu[3].rotation);
         spawnRate += 1;
@@ -85,6 +90,7 @@ public class GameManager : MonoBehaviour
             ss.yesTutorial = false;
             ts2.sedangTutorial = false;
             ppoint.yesTutorial = false;
+            TriggerSmoothTimeScale();
         }
     }
 
@@ -97,8 +103,18 @@ public class GameManager : MonoBehaviour
             BatuSpawner();
             BolaPoinSpawner();
         }
-        
+
         // Bagian tutorial pokok e
+
+        if (isTutorial == true)
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                TutorialBox.SetActive(false);
+                TriggerSmoothTimeScale();
+                TutorialText.fontSize = 49.5f;
+            }
+        }
 
         if(sedangTutorialBatu == true)
         {
@@ -455,5 +471,39 @@ public class GameManager : MonoBehaviour
             sedangTutorialSoal = false;
             TutorialText.text = "";
         }
+    }
+
+    public void WelcomeText()
+    {
+        StartCoroutine(SequenceWelcomeText());
+    }
+
+    IEnumerator SequenceWelcomeText()
+    {
+        yield return new WaitForSecondsRealtime(0f);
+        TutorialBox.SetActive(true);
+        TutorialText.fontSize = 45;
+        TutorialText.text = "Halo, aku Budi! Aku sedang dalam perjalanan menuju lomba matematika. Sepanjang perjalanan, aku harus memilih rute yang tepat. Selain itu, aku harus berlatih menjawab soal matematika terkait hierarki urutan operasi. Ayo bantu aku menentukan jalan yang benar dan belajar bersama untuk meraih kemenangan! Tekan 'Enter' untuk lanjut!";
+    }
+
+    public void TriggerSmoothTimeScale()
+    {
+        StartCoroutine(SmoothTimeScale(1f, 1f));
+    }
+
+    IEnumerator SmoothTimeScale(float targetScale, float duration)
+    {
+        float startScale = Time.timeScale;
+        float time = 0f;
+
+        while (time < duration)
+        {
+            Time.timeScale = Mathf.Lerp(startScale, targetScale, time / duration);
+
+            time += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        Time.timeScale = targetScale;
     }
 }

@@ -817,6 +817,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 298704473}
+  - component: {fileID: 298704474}
   m_Layer: 0
   m_Name: Tombol
   m_TagString: Untagged
@@ -845,6 +846,21 @@ RectTransform:
   m_AnchoredPosition: {x: -576.9, y: -25.699997}
   m_SizeDelta: {x: 500, y: 387}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &298704474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298704472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e62de9924690992428703ea0a0be7668, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TombolManager
+  TombolBalik: {fileID: 971666355}
+  ScreenSettings: {fileID: 0}
+  ScreenLearn: {fileID: 0}
 --- !u!1 &390153757
 GameObject:
   m_ObjectHideFlags: 0
@@ -5057,6 +5073,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHealth: 3
+  tombolLanjut: {fileID: 830629305}
+  tombolRestart: {fileID: 2100537464}
+  tombolRestartHolder: {fileID: 971666357}
+  posisiButton: {fileID: 971666356}
 --- !u!54 &1327478859
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7926,6 +7946,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   TombolBalik: {fileID: 830629300}
+  ScreenSettings: {fileID: 0}
+  ScreenLearn: {fileID: 0}
 --- !u!33 &215592838598811806
 MeshFilter:
   m_ObjectHideFlags: 0

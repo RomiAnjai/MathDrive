@@ -168,10 +168,7 @@ public class SoalScript : MonoBehaviour
         else
         {
             audioSource.PlayOneShot(sFXSalah);
-            panelSoal.SetActive(false);
-            jawaban1.SetActive(false);
-            jawaban2.SetActive(false);
-            jawaban3.SetActive(false);
+            ShowSalah();
 
             PlayerPoint ppoint = FindObjectOfType<PlayerPoint>();
             if (ppoint != null)
@@ -208,6 +205,11 @@ public class SoalScript : MonoBehaviour
     {
         StartCoroutine(SequenceShowJawab());
     }
+
+    void ShowSalah()
+    {
+        StartCoroutine(SequenceShowSalah());
+    }
     IEnumerator SequenceShowJawab()
     {
         yield return new WaitForSecondsRealtime(0f);
@@ -215,20 +217,38 @@ public class SoalScript : MonoBehaviour
         if(randomPos == 1)
             {
                 Green1.SetActive(true);
-                Red2.SetActive(true);
-                Red3.SetActive(true);
             } else if (randomPos == 2)
             {
-                Red1.SetActive(true);
                 Green2.SetActive(true);
-                Red3.SetActive(true);
             } else if (randomPos == 3)
             {
-                Red1.SetActive(true);
-                Red2.SetActive(true);
                 Green3.SetActive(true);
             }
         
+        yield return new WaitForSecondsRealtime(1f);
+        panelSoal.SetActive(false);
+        jawaban1.SetActive(false);
+        jawaban2.SetActive(false);
+        jawaban3.SetActive(false);
+    }
+
+    IEnumerator SequenceShowSalah()
+    {
+        yield return new WaitForSecondsRealtime(0f);
+
+        if(hehe == 1)
+        {
+            Red1.SetActive(true);
+        }
+        if(hehe == 2)
+        {
+            Red2.SetActive(true);
+        }
+        if(hehe == 3)
+        {
+            Red3.SetActive(true);
+        }
+
         yield return new WaitForSecondsRealtime(1f);
         panelSoal.SetActive(false);
         jawaban1.SetActive(false);
