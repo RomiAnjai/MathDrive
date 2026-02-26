@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     [Header("Tutorial")]
     public TMP_Text TutorialText;
     public GameObject TutorialBox;
+    public GameObject blackScreenANim;
     public SoalScript ss;
     public FadeImage blackScreen;
 
@@ -66,12 +67,14 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] AudioSource awokawok;
     [SerializeField] AudioSource awokawok2;
+    [SerializeField] AudioSource mesinMobil;
     private int jos = 0;
     void Start()
     {
         if(isTutorial == true)
         {
             Time.timeScale = 0f;
+            mesinMobil.Stop();
             WelcomeText();
         }
         Instantiate(platform, transform.position + new Vector3(14.05f, 13.84f, 20f), Quaternion.Euler(0f, 0f, 0f));
@@ -111,7 +114,9 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 TutorialBox.SetActive(false);
+                blackScreen.FadeOut();
                 TriggerSmoothTimeScale();
+                mesinMobil.Play();
                 TutorialText.fontSize = 49.5f;
             }
         }
@@ -361,7 +366,7 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(1f);
             blackScreen.FadeIn();
-            yield return new WaitForSecondsRealtime(2f);
+            yield return new WaitForSecondsRealtime(1.5f);
             TutorialBox.SetActive(true);
             TutorialText.color = Color.white;
             TutorialText.text = "YOU WIN // KAMU MENANG Hebat! Semua soal berhasil diselesaikan.";

@@ -2143,7 +2143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7902,6 +7902,7 @@ MonoBehaviour:
   tombolRestartObject: {fileID: 971666355}
   TutorialText: {fileID: 1197944835}
   TutorialBox: {fileID: 1635109708}
+  blackScreenANim: {fileID: 0}
   ss: {fileID: 886903703}
   blackScreen: {fileID: 828141972}
   isTutorial: 1
@@ -7917,6 +7918,7 @@ MonoBehaviour:
   sudahMenang: 0
   awokawok: {fileID: 946170397}
   awokawok2: {fileID: 1604377012}
+  mesinMobil: {fileID: 1239708922}
   currentState: 0
 --- !u!4 &2146768937
 Transform:

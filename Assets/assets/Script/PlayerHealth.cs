@@ -35,8 +35,8 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
         Debug.Log("GAME OVER");
-        TombolManager tr = FindObjectOfType<TombolManager>();
-        tr.TombolBalik.SetActive(true);
+        GameManager game = FindObjectOfType<GameManager>();
+        game.tombolRestartObject.SetActive(true);
         posisiButton.anchoredPosition = new Vector2(625f, 100f);
 
         Time.timeScale = 0f;
@@ -46,7 +46,6 @@ public class PlayerHealth : MonoBehaviour
 
         if(SceneManager.GetActiveScene().name == "LevelTutorial")
         {
-            GameManager game = FindObjectOfType<GameManager>();
             game.TutorialBox.SetActive(true);
             game.TutorialText.text = "Nyawamu habis. Ayo kita ulang perjalanan dari awal!";
         }

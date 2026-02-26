@@ -22,9 +22,14 @@ public class TombolManager : MonoBehaviour
 
     public void LanjutLevel()
     {
+        if(SceneManager.GetActiveScene().name == "Level5")
+        {
+            SceneManager.LoadScene("HomeScreen");
+        } else {
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentIndex + 1);
         Time.timeScale = 1f;
+        }
     }
 
     public void PressPlay()

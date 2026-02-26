@@ -4503,9 +4503,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHealth: 3
-  tombolLanjut: {fileID: 0}
-  tombolRestart: {fileID: 0}
-  tombolRestartHolder: {fileID: 0}
+  tombolLanjut: {fileID: 830629305}
+  tombolRestart: {fileID: 2100537464}
+  tombolRestartHolder: {fileID: 971666357}
+  posisiButton: {fileID: 971666356}
 --- !u!54 &1327478859
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7704,6 +7705,7 @@ MonoBehaviour:
   tombolRestartObject: {fileID: 971666355}
   TutorialText: {fileID: 0}
   TutorialBox: {fileID: 0}
+  blackScreenANim: {fileID: 0}
   ss: {fileID: 0}
   blackScreen: {fileID: 0}
   isTutorial: 1
